@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: "Get Schwifty";
+  src: url("/fonts/get_schwifty.ttf") format("truetype"); /* Adjust the path and file format if necessary */
+  /* Add other font formats (e.g., woff, woff2) as needed */
+}

@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
+import Navbar from "@/components/navBar";
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
@@ -10,6 +11,7 @@ const client = new ApolloClient({
 export default function App({ Component, pageProps }) {
   return (
     <ChakraProvider>
+      <Navbar />
       <ApolloProvider client={client}>
         <Component {...pageProps} />
       </ApolloProvider>
