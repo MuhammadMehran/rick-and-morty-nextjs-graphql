@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useQuery, gql } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
-
+import { Box, Progress, Skeleton, Stack } from "@chakra-ui/react";
 const GET_CHARACTERS = gql`
   query {
     characters(page: 1) {
@@ -17,8 +17,8 @@ const GET_CHARACTERS = gql`
 export default function Home() {
   const { loading, error, data } = useQuery(GET_CHARACTERS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error !</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error !</p>;
 
   return (
     <div>
@@ -28,13 +28,27 @@ export default function Home() {
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-5">
-            {data.characters.results.map((character) => (
-              <CharacterCard
-                key={character.id}
-                title={character.name}
-                img={character.image}
-              />
-            ))}
+            {loading ? (
+              <>
+                {Array.from({ length: 20 }, (_, index) => index + 1).map(
+                  (_, index) => (
+                    <Box key={index} w="100%" height="200" borderRadius="lg">
+                      <Skeleton width="100%" height="100%" my="5" />
+                    </Box>
+                  )
+                )}
+              </>
+            ) : (
+              <>
+                {data.characters.results.map((character) => (
+                  <CharacterCard
+                    key={character.id}
+                    title={character.name}
+                    img={character.image}
+                  />
+                ))}
+              </>
+            )}
           </div>
           {/* <div className="mt-10">
             <PaginationButtons
