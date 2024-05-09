@@ -1,4 +1,4 @@
-export const rmAnimation = {
+export const rickAnimation = {
   tgs: 1,
   v: "5.5.2",
   fr: 60,

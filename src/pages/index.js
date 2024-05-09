@@ -1,9 +1,17 @@
 import Image from "next/image";
 import { useQuery, gql } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
-import { Box, Flex, Skeleton, Button, Progress } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Skeleton,
+  Button,
+  Progress,
+  Center,
+} from "@chakra-ui/react";
 import { useState } from "react";
-
+import Lottie from "lottie-react";
+import { mortyAnimation } from "@/lib/mortyAnimation";
 const GET_CHARACTERS = gql`
   query Characters($page: Int!) {
     characters(page: $page) {
@@ -63,7 +71,7 @@ export default function Home() {
         </Box>
       )}
 
-      <div className="flex flex-col pt-5 pb-5 mt-5 justify-center items-center w-full">
+      <div className="flex flex-col pt-5 pb-5 mt-5 pr-20 justify-center items-center w-full">
         <h2 className="text-3xl text-cyan-600 font-bold">Characters</h2>
       </div>
 
@@ -79,6 +87,16 @@ export default function Home() {
             ))}
             {loading && (
               <>
+                <Box position="fixed" top="0" left="0" right="0" zIndex="999">
+                  <Center>
+                    <Lottie
+                      animationData={mortyAnimation}
+                      loop={true}
+                      style={{ width: "30%", height: "20%" }}
+                    />
+                  </Center>
+                </Box>
+
                 {Array.from({ length: 20 }, (_, index) => index + 1).map(
                   (_, index) => (
                     <Box key={index} w="100%" height="200" borderRadius="lg">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
-import { rmAnimation } from "@/lib/rm-animation";
+import { rickAnimation } from "@/lib/rickAnimation";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center w-full h-20 px-4 text-cyan-600 bg-blue-200 nav">
       <div style={{ height: "90px" }}>
         <Lottie
-          animationData={rmAnimation}
+          animationData={rickAnimation}
           loop={false}
           style={{ width: "100%", height: "100%" }}
         />
