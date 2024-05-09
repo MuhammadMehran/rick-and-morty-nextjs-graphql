@@ -20,39 +20,39 @@ const GET_CHARACTERS = gql`
   }
 `;
 export default function Home() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [characters, setCharacters] = useState([]);
-  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
-    variables: { page: page },
+  const [loading, setLoading] = useState(true);
+  const { error, data, fetchMore } = useQuery(GET_CHARACTERS, {
+    variables: { page: 1 },
     onCompleted: (data) => {
       setCharacters(data.characters.results);
-      console.log("data", data);
+      setLoading(false);
     },
   });
 
   const loadMoreCharacters = () => {
-    console.log("page", page + 1);
-    fetchMore({
-      variables: {
-        page: page + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
+    setLoading(true);
+    if (page) {
+      fetchMore({
+        variables: {
+          page: page,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
 
-        setCharacters([...characters, ...fetchMoreResult.characters.results]);
-
-        return {
-          characters: {
-            ...fetchMoreResult.characters,
-            // results: [
-            //   ...prev.characters.results,
-            //   ...fetchMoreResult.characters.results,
-            // ],
-          },
-        };
-      },
-    });
-    setPage(page + 1);
+          setCharacters([...characters, ...fetchMoreResult.characters.results]);
+          setPage(fetchMoreResult.characters.info.next);
+          return {
+            characters: {
+              ...fetchMoreResult.characters,
+            },
+          };
+        },
+      }).then(() => {
+        setLoading(false);
+      });
+    }
   };
 
   return (
@@ -89,16 +89,18 @@ export default function Home() {
               </>
             )}
           </div>
-          <Flex justifyContent="center" className="mt-10">
-            <Button
-              onClick={loadMoreCharacters}
-              colorScheme="blue"
-              variant="outline"
-              isLoading={loading}
-            >
-              Load More
-            </Button>
-          </Flex>
+          {page && (
+            <Flex justifyContent="center" className="mt-10">
+              <Button
+                onClick={loadMoreCharacters}
+                colorScheme="blue"
+                variant="outline"
+                isLoading={loading}
+              >
+                Load More
+              </Button>
+            </Flex>
+          )}
         </div>
       </div>
     </div>
