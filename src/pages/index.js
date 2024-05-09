@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { useQuery, gql } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
-import { Box, Progress, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Button, Progress } from "@chakra-ui/react";
+import { useState } from "react";
+
 const GET_CHARACTERS = gql`
-  query {
-    characters(page: 1) {
+  query Characters($page: Int!) {
+    characters(page: $page) {
+      info {
+        next
+      }
       results {
         id
         name
@@ -15,20 +20,64 @@ const GET_CHARACTERS = gql`
   }
 `;
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
+  const [page, setPage] = useState(1);
+  const [characters, setCharacters] = useState([]);
+  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
+    variables: { page: page },
+    onCompleted: (data) => {
+      setCharacters(data.characters.results);
+      console.log("data", data);
+    },
+  });
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error !</p>;
+  const loadMoreCharacters = () => {
+    console.log("page", page + 1);
+    fetchMore({
+      variables: {
+        page: page + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        setCharacters([...characters, ...fetchMoreResult.characters.results]);
+
+        return {
+          characters: {
+            ...fetchMoreResult.characters,
+            // results: [
+            //   ...prev.characters.results,
+            //   ...fetchMoreResult.characters.results,
+            // ],
+          },
+        };
+      },
+    });
+    setPage(page + 1);
+  };
 
   return (
     <div>
+      {loading && (
+        <Box position="fixed" top="0" left="0" right="0" zIndex="999">
+          <Progress size="sm" isIndeterminate colorScheme="blue" />
+        </Box>
+      )}
+
       <div className="flex flex-col pt-5 pb-5 mt-5 justify-center items-center w-full bg-blue-500">
         <h2 className="text-3xl text-white font-bold ">Characters</h2>
       </div>
+
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-5">
-            {loading ? (
+            {characters.map((character) => (
+              <CharacterCard
+                key={character.id}
+                title={character.name}
+                img={character.image}
+              />
+            ))}
+            {loading && (
               <>
                 {Array.from({ length: 20 }, (_, index) => index + 1).map(
                   (_, index) => (
@@ -38,26 +87,18 @@ export default function Home() {
                   )
                 )}
               </>
-            ) : (
-              <>
-                {data.characters.results.map((character) => (
-                  <CharacterCard
-                    key={character.id}
-                    title={character.name}
-                    img={character.image}
-                  />
-                ))}
-              </>
             )}
           </div>
-          {/* <div className="mt-10">
-            <PaginationButtons
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onNextClick={nextPage}
-              onPrevClick={prevPage}
-            />
-          </div> */}
+          <Flex justifyContent="center" className="mt-10">
+            <Button
+              onClick={loadMoreCharacters}
+              colorScheme="blue"
+              variant="outline"
+              isLoading={loading}
+            >
+              Load More
+            </Button>
+          </Flex>
         </div>
       </div>
     </div>
