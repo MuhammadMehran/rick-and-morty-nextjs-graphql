@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import CharacterItem from "@/components/characterItem";
 import Head from "next/head";
+import { SkeletonCard } from "@/components/skeletonCard";
 
 const characterPage = () => {
   const router = useRouter();
@@ -53,24 +54,30 @@ const characterPage = () => {
 
   return (
     <>
-      {!loading && (
-        <div>
-          <Head>
-            <title>{name}</title>
-          </Head>
-          <CharacterItem
-            id={id}
-            name={name}
-            status={status}
-            species={species}
-            type={type}
-            gender={gender}
-            image={image}
-            location={location}
-            origin={origin}
-          />
-        </div>
-      )}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 pt-5 w-full">
+        {loading ? (
+          <>
+            <SkeletonCard />
+          </>
+        ) : (
+          <>
+            <Head>
+              <title>{name}</title>
+            </Head>
+            <CharacterItem
+              id={id}
+              name={name}
+              status={status}
+              species={species}
+              type={type}
+              gender={gender}
+              image={image}
+              location={location}
+              origin={origin}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 };

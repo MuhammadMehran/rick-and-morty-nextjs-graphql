@@ -23,60 +23,69 @@ const CharacterItem = (props) => {
     props;
 
   return (
-    <Box
-      flexDir={{ md: "row", sm: "column", xs: "column" }}
-      justifyContent="normal"
-      maxWidth="20%"
-      marginLeft="auto"
-      marginRight="auto"
-    >
+    <div className="w-full">
       <Box
-        flex="0 0 60%"
-        shadow="lg"
-        marginRight={{ md: "20px", sm: "0px", xs: "0px" }}
-        marginBottom={{ md: "0px", sm: "20px", xs: "20px" }}
-        marginTop={{ md: "0px", sm: "20px", xs: "20px" }}
-        paddingTop="15px"
+        flexDir={{ md: "row", sm: "column", xs: "column" }}
+        justifyContent="normal"
+        maxWidth="50%"
+        marginLeft="auto"
+        marginRight="auto"
+        className="mt-10"
       >
-        <Image
-          src={image}
-          fallbackSrc="/placeholder.png"
-          alt={name}
-          width="50%"
-          borderRadius="1000px"
-          border="2px solid teal"
+        <Box
+          flex="0 0 60%"
           shadow="lg"
-          justifySelf="center"
-          margin="0 auto"
-        />
-        <Heading fontSize="3xl" textAlign="center" mt="20px" mb="20px">
-          {name}
-        </Heading>
-        <Divider />
+          marginRight={{ md: "20px", sm: "0px", xs: "0px" }}
+          marginBottom={{ md: "0px", sm: "20px", xs: "20px" }}
+          marginTop={{ md: "0px", sm: "20px", xs: "20px" }}
+          paddingTop="15px"
+        >
+          <Image
+            src={image}
+            alt={name}
+            width="50%"
+            borderRadius="1000px"
+            border="2px solid teal"
+            shadow="lg"
+            justifySelf="center"
+            margin="0 auto"
+          />
+          <Heading fontSize="3xl" textAlign="center" mt="20px" mb="20px">
+            {name}
+          </Heading>
+          <Divider />
 
-        <Row {...statusMap[status]} label="Status:" />
-        <Row {...genderMap[gender]} label="Gender:" />
-        <Row color="gray" text={species} icon={FaUserAlt} label="Species:" />
-        <Row
-          color="gray"
-          text={type ? type : "No type"}
-          icon={FaUserPlus}
-          label="Type:"
-        />
-        <Row
-          color="gray"
-          text={origin.name}
-          icon={FaGlobeAfrica}
-          label="Origin:"
-        />
-        <Row
-          color="gray"
-          text={location.name}
-          icon={FaMapMarkerAlt}
-          label="Location:"
-        />
+          <Box className="p-5">
+            <Row {...statusMap[status]} label="Status:" />
+            <Row {...genderMap[gender]} label="Gender:" />
+            <Row
+              color="gray"
+              text={species}
+              icon={FaUserAlt}
+              label="Species:"
+            />
+            <Row
+              color="gray"
+              text={type ? type : "No type"}
+              icon={FaUserPlus}
+              label="Type:"
+            />
+            <Row
+              color="gray"
+              text={origin.name}
+              icon={FaGlobeAfrica}
+              label="Origin:"
+            />
+            <Row
+              color="gray"
+              text={location.name}
+              icon={FaMapMarkerAlt}
+              label="Location:"
+            />
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 
