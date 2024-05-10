@@ -27,9 +27,10 @@ const CharacterItem = (props) => {
       <Box
         flexDir={{ md: "row", sm: "column", xs: "column" }}
         justifyContent="normal"
-        maxWidth="50%"
+        maxWidth="70%"
         marginLeft="auto"
         marginRight="auto"
+        marginBottom="10"
         className="mt-10"
       >
         <Box

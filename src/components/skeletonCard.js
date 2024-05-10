@@ -13,7 +13,7 @@ export const SkeletonCard = () => {
       <Box
         flexDir={{ md: "row", sm: "column", xs: "column" }}
         justifyContent="normal"
-        maxWidth="50%"
+        maxWidth="70%"
         marginLeft="auto"
         marginRight="auto"
         className="mt-10"
