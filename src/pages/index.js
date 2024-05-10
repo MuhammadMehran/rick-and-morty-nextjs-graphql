@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Head from "next/head";
 import { useQuery, gql } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
 import {
@@ -12,6 +13,8 @@ import {
 import { useState } from "react";
 import Lottie from "lottie-react";
 import { mortyAnimation } from "@/lib/mortyAnimation";
+import { useRouter } from "next/router";
+
 const GET_CHARACTERS = gql`
   query Characters($page: Int!) {
     characters(page: $page) {
@@ -28,6 +31,7 @@ const GET_CHARACTERS = gql`
   }
 `;
 export default function Home() {
+  const router = useRouter();
   const [page, setPage] = useState(2);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,6 +69,9 @@ export default function Home() {
 
   return (
     <div>
+      <Head>
+        <title>Rick and Morty</title>
+      </Head>
       {loading && (
         <Box position="fixed" top="0" left="0" right="0" zIndex="999">
           <Progress size="sm" isIndeterminate colorScheme="blue" />
@@ -88,6 +95,9 @@ export default function Home() {
                 key={character.id}
                 title={character.name}
                 img={character.image}
+                onClick={() => {
+                  router.push(`/character/${character.id}`);
+                }}
               />
             ))}
             {loading && (
