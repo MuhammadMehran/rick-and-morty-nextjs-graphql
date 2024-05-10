@@ -9,11 +9,13 @@ const Navbar = () => {
   const links = [
     {
       id: 1,
-      link: "Characters",
+      name: "Characters",
+      link: "/",
     },
     {
       id: 2,
-      link: "Episodes",
+      name: "Episodes",
+      link: "/episodes",
     },
   ];
 
@@ -36,12 +38,12 @@ const Navbar = () => {
       </div>
 
       <ul className="hidden md:flex">
-        {links.map(({ id, link }) => (
+        {links.map(({ id, link, name }) => (
           <li
             key={id}
             className="nav-links px-4 cursor-pointer capitalize font-medium hover:scale-105 hover:text-cyan-800 duration-200 link-underline"
           >
-            <Link href={link}>{link}</Link>
+            <Link href={link}>{name}</Link>
           </li>
         ))}
       </ul>
