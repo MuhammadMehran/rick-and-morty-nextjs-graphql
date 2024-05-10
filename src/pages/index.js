@@ -55,11 +55,6 @@ export default function Home() {
 
           setCharacters([...characters, ...fetchMoreResult.characters.results]);
           setPage(fetchMoreResult.characters.info.next);
-          return {
-            characters: {
-              ...fetchMoreResult.characters,
-            },
-          };
         },
       }).then(() => {
         setLoading(false);
