@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import CharacterItem from "@/components/characterItem";
 import Head from "next/head";
 import { SkeletonCard } from "@/components/skeletonCard";
+import { SkeletonEpisodes } from "@/components/skeletonEpisodes";
 import { Episodes } from "@/components/episodes";
 const characterPage = () => {
   const router = useRouter();
@@ -58,6 +59,7 @@ const characterPage = () => {
         {loading ? (
           <>
             <SkeletonCard />
+            <SkeletonEpisodes />
           </>
         ) : (
           <>
@@ -75,6 +77,7 @@ const characterPage = () => {
               location={location}
               origin={origin}
             />
+
             <Episodes episodes={episode} />
           </>
         )}
