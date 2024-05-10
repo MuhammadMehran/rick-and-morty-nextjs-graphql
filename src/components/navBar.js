@@ -18,7 +18,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-cyan-600 bg-blue-200 nav">
+    <div className="flex justify-between items-center w-full h-20 px-5 text-cyan-600 bg-blue-200 nav">
       <div style={{ height: "90px" }}>
         <Lottie
           animationData={rickAnimation}
@@ -29,7 +29,7 @@ const Navbar = () => {
       <div>
         <h1
           style={{ fontFamily: "Get Schwifty" }}
-          className="text-4xl font-signature  ml-2"
+          className="text-4xl font-signature ml-10"
         >
           Rick and Morty
         </h1>

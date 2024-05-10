@@ -72,7 +72,12 @@ export default function Home() {
       )}
 
       <div className="flex flex-col pt-5 pb-5 mt-5 pr-20 justify-center items-center w-full">
-        <h2 className="text-3xl text-cyan-600 font-bold">Characters</h2>
+        <h2
+          className="text-4xl text-cyan-600"
+          style={{ fontFamily: "Get Schwifty" }}
+        >
+          Characters
+        </h2>
       </div>
 
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
