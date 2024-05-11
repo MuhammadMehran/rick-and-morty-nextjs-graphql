@@ -17,11 +17,9 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import { mortyAnimation } from "@/lib/mortyAnimation";
-import { useRouter } from "next/router";
 import { GET_CHARACTERS } from "@/lib/queries";
 
 export default function Home() {
-  const router = useRouter();
   const [page, setPage] = useState(2);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -190,9 +188,7 @@ export default function Home() {
                 key={character.id}
                 title={character.name}
                 img={character.image}
-                onClick={() => {
-                  router.push(`/character/${character.id}`);
-                }}
+                id={character.id}
               />
             ))}
             {loading && (
