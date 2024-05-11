@@ -42,14 +42,13 @@ export default function Home() {
     variables: { page: 1, filter, filter },
     onCompleted: (data) => {
       setCharacters(data.characters.results);
+      setPage(data.characters.info.next);
       setLoading(false);
     },
   });
 
   const search = () => {
-    console.log("name", name);
-    console.log("status", status);
-    console.log("gender", gender);
+    setPage(2);
     setFilter({
       name,
       status,
