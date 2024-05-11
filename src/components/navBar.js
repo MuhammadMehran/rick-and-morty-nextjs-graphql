@@ -31,7 +31,7 @@ const Navbar = () => {
       <div>
         <h1
           style={{ fontFamily: "Get Schwifty" }}
-          className="text-4xl font-signature ml-10"
+          className="text-2xl md:text-4xl font-signature ml-10"
         >
           <Link href="/">Rick and Morty</Link>
         </h1>
