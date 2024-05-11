@@ -6,37 +6,10 @@ import Head from "next/head";
 import { SkeletonCard } from "@/components/skeletonCard";
 import { SkeletonEpisodes } from "@/components/skeletonEpisodes";
 import { Episodes } from "@/components/episodes";
+import { GET_CHARACTER } from "@/lib/queries";
 const characterPage = () => {
   const router = useRouter();
   const { id } = router.query;
-
-  const GET_CHARACTER = gql`
-    query Character($id: ID!) {
-      character(id: $id) {
-        id
-        name
-        status
-        type
-        gender
-        origin {
-          id
-          name
-        }
-        species
-        image
-        episode {
-          id
-          name
-          episode
-          air_date
-        }
-        location {
-          id
-          name
-        }
-      }
-    }
-  `;
 
   const { loading, error, data } = useQuery(GET_CHARACTER, {
     variables: { id: id },

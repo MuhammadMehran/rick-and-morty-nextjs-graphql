@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Head from "next/head";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
 import {
   Box,
@@ -9,27 +9,17 @@ import {
   Button,
   Progress,
   Center,
+  Input,
+  IconButton,
+  Select,
 } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import { mortyAnimation } from "@/lib/mortyAnimation";
 import { useRouter } from "next/router";
+import { GET_CHARACTERS } from "@/lib/queries";
 
-const GET_CHARACTERS = gql`
-  query Characters($page: Int!) {
-    characters(page: $page) {
-      info {
-        next
-      }
-      results {
-        id
-        name
-        image
-        species
-      }
-    }
-  }
-`;
 export default function Home() {
   const router = useRouter();
   const [page, setPage] = useState(2);
@@ -84,6 +74,41 @@ export default function Home() {
 
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-5">
+            <Input placeholder="Name..." />
+            <Input placeholder="Species..." />
+            <Input placeholder="Type..." />
+            <Select placeholder="Status...">
+              <option value="Alive">Alive</option>
+              <option value="Dead">Dead</option>
+              <option value="unknown">unknown</option>
+            </Select>
+            <Select placeholder="Gender...">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Genderless">Genderless</option>
+              <option value="unknown">unknown</option>
+            </Select>
+
+            <p>
+              <Button
+                width="80%"
+                colorScheme="blue"
+                variant="solid"
+                isLoading={loading}
+              >
+                Search
+              </Button>
+              <IconButton
+                className="ml-2"
+                variant="solid"
+                colorScheme="red"
+                aria-label="Clear"
+                fontSize="20px"
+                icon={<CloseIcon />}
+              />
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-5">
             {characters.map((character) => (
               <CharacterCard
