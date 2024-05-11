@@ -30,13 +30,14 @@ export default function Home() {
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [gender, setGender] = useState("");
-  const [filter, setFilter] = useState({
+  const init_filter = {
     name: "",
     status: "",
     species: "",
     type: "",
     gender: "",
-  });
+  };
+  const [filter, setFilter] = useState(init_filter);
 
   const { error, data, fetchMore } = useQuery(GET_CHARACTERS, {
     variables: { page: 1, filter, filter },
@@ -57,6 +58,17 @@ export default function Home() {
       type,
       gender,
     });
+  };
+
+  const clear = () => {
+    setName("");
+    setStatus("");
+    setSpecies("");
+    setType("");
+    setGender("");
+    setPage(2);
+    setLoading(true);
+    setFilter(init_filter);
   };
 
   const handleKeyPress = (event) => {
@@ -163,6 +175,7 @@ export default function Home() {
                 colorScheme="red"
                 aria-label="Clear"
                 fontSize="20px"
+                onClick={clear}
                 icon={<CloseIcon />}
               />
             </p>
