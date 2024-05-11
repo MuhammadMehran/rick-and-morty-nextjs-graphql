@@ -107,7 +107,7 @@ export default function Home() {
         </Box>
       )}
 
-      <Center className="pt-5 pb-5 mt-5 pr-0 md:pr-20">
+      <Center className="mt-10 pr-0 md:pr-20">
         <h2
           className="text-4xl text-cyan-600"
           style={{ fontFamily: "Get Schwifty" }}
@@ -164,7 +164,7 @@ export default function Home() {
 
             <p className="w-full">
               <Button
-                width="80%"
+                className="ml-0 md:ml-2 mt-2 md:mt-0 w-full md:w-[70%]"
                 colorScheme="blue"
                 variant="solid"
                 isLoading={loading}
@@ -173,7 +173,7 @@ export default function Home() {
                 Search
               </Button>
               <IconButton
-                className="ml-2"
+                className="ml-0 md:ml-2 mt-2 md:mt-0 w-full md:w-auto"
                 variant="solid"
                 colorScheme="red"
                 aria-label="Clear"
