@@ -7,16 +7,16 @@ const Navbar = () => {
   const [nav, setNav] = useState(false);
 
   const links = [
-    {
-      id: 1,
-      name: "Characters",
-      link: "/",
-    },
-    {
-      id: 2,
-      name: "Episodes",
-      link: "/episodes",
-    },
+    // {
+    //   id: 1,
+    //   name: "Characters",
+    //   link: "/",
+    // },
+    // {
+    //   id: 2,
+    //   name: "Episodes",
+    //   link: "/episodes",
+    // },
   ];
 
   return (
@@ -31,7 +31,7 @@ const Navbar = () => {
       <div>
         <h1
           style={{ fontFamily: "Get Schwifty" }}
-          className="text-2xl md:text-4xl font-signature ml-10"
+          className="text-2xl md:text-4xl font-signature mr-20"
         >
           <Link href="/">Rick and Morty</Link>
         </h1>

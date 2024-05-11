@@ -67,7 +67,6 @@ export default function Home() {
     setType("");
     setGender("");
     setPage(2);
-    setLoading(true);
     setFilter(init_filter);
   };
 
@@ -107,7 +106,7 @@ export default function Home() {
         </Box>
       )}
 
-      <Center className="mt-10 pr-0 md:pr-20">
+      <Center className="mt-10">
         <h2
           className="text-4xl text-cyan-600"
           style={{ fontFamily: "Get Schwifty" }}
@@ -115,9 +114,6 @@ export default function Home() {
           Characters
         </h2>
       </Center>
-      {/* <div className="flex flex-col pt-5 pb-5 mt-5 pr-20 justify-center items-center w-full">
-        
-      </div> */}
 
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">

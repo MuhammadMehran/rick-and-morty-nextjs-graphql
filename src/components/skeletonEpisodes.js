@@ -11,7 +11,7 @@ import {
 export const SkeletonEpisodes = () => {
   return (
     <Card
-      className="mt-10 mr-10"
+      className="mt-10 mr-10 ml-5 md:ml-5"
       marginBottom="10"
       flexDir={{ md: "row", sm: "column", xs: "column" }}
     >
