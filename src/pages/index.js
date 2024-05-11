@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
 import CharacterCard from "@/components/characterCard";
@@ -7,6 +6,7 @@ import {
   Flex,
   Skeleton,
   Button,
+  Image,
   Progress,
   Center,
   Input,
@@ -49,6 +49,7 @@ export default function Home() {
 
   const search = () => {
     setPage(2);
+    setLoading(true);
     setFilter({
       name,
       status,
@@ -166,6 +167,11 @@ export default function Home() {
               />
             </p>
           </div>
+          {!loading && characters.length == 0 && (
+            <Center className="m-5">
+              <Image src="/404.png" width="50%" height="50%" />
+            </Center>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-5">
             {characters.map((character) => (
               <CharacterCard
