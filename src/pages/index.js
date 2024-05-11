@@ -25,13 +25,45 @@ export default function Home() {
   const [page, setPage] = useState(2);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [species, setSpecies] = useState("");
+  const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
+  const [gender, setGender] = useState("");
+  const [filter, setFilter] = useState({
+    name: "",
+    status: "",
+    species: "",
+    type: "",
+    gender: "",
+  });
+
   const { error, data, fetchMore } = useQuery(GET_CHARACTERS, {
-    variables: { page: 1 },
+    variables: { page: 1, filter, filter },
     onCompleted: (data) => {
       setCharacters(data.characters.results);
       setLoading(false);
     },
   });
+
+  const search = () => {
+    console.log("name", name);
+    console.log("status", status);
+    console.log("gender", gender);
+    setFilter({
+      name,
+      status,
+      species,
+      type,
+      gender,
+    });
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      search();
+    }
+  };
 
   const loadMoreCharacters = () => {
     setLoading(true);
@@ -75,15 +107,40 @@ export default function Home() {
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-5">
-            <Input placeholder="Name..." />
-            <Input placeholder="Species..." />
-            <Input placeholder="Type..." />
-            <Select placeholder="Status...">
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name..."
+              onKeyUp={handleKeyPress}
+            />
+            <Input
+              value={species}
+              onChange={(e) => setSpecies(e.target.value)}
+              placeholder="Species..."
+              onKeyUp={handleKeyPress}
+            />
+            <Input
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              placeholder="Type..."
+              onKeyUp={handleKeyPress}
+            />
+            <Select
+              value={status}
+              placeholder="Status..."
+              onChange={(e) => setStatus(e.target.value)}
+              onKeyUp={handleKeyPress}
+            >
               <option value="Alive">Alive</option>
               <option value="Dead">Dead</option>
               <option value="unknown">unknown</option>
             </Select>
-            <Select placeholder="Gender...">
+            <Select
+              value={gender}
+              placeholder="Gender..."
+              onChange={(e) => setGender(e.target.value)}
+              onKeyUp={handleKeyPress}
+            >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Genderless">Genderless</option>
@@ -96,6 +153,7 @@ export default function Home() {
                 colorScheme="blue"
                 variant="solid"
                 isLoading={loading}
+                onClick={search}
               >
                 Search
               </Button>
